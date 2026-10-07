@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>LIFEASSIST — Personal Lifestyle Assistant</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- =========================
+       APP
+  ========================== -->
+  <div id="app">
+
+    <!-- =========================
+         WELCOME / PROFILE SCREEN
+    ========================== -->
+    <section id="welcomeScreen" class="screen welcome-screen">
+
+      <div class="welcome-overlay"></div>
+
+      <div class="welcome-content">
+
+        <div class="brand-block">
+          <span class="brand-mini">PERSONAL</span>
+          <h1>LIFE<span>ASSIST</span></h1>
+          <p>Your Personal Lifestyle Assistant</p>
+        </div>
+
+        <div class="profile-card glass">
+
+          <div class="card-heading">
+            <span class="eyebrow">LET'S GET STARTED</span>
+            <h2>Tell us about you</h2>
+            <p>
+              We'll create a simple lifestyle and nutrition plan for you.
+            </p>
+          </div>
+
+          <div class="input-grid">
+
+            <div class="input-group">
+              <label for="weight">Weight</label>
+
+              <div class="input-wrap">
+                <input
+                  id="weight"
+                  type="number"
+                  min="20"
+                  max="300"
+                  placeholder="70"
+                />
+                <span>kg</span>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="height">Height</label>
+
+              <div class="input-wrap">
+                <input
+                  id="height"
+                  type="number"
+                  min="100"
+                  max="250"
+                  placeholder="170"
+                />
+                <span>cm</span>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="age">Age</label>
+
+              <div class="input-wrap">
+                <input
+                  id="age"
+                  type="number"
+                  min="13"
+                  max="100"
+                  placeholder="21"
+                />
+                <span>yrs</span>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="gender">Gender</label>
+
+              <select id="gender">
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="input-group full-width">
+            <label for="activity">Activity Level</label>
+
+            <select id="activity">
+
+              <option value="">
+                Select your activity level
+              </option>
+
+              <option value="1.2">
+                Sedentary — Little or no exercise
+              </option>
+
+              <option value="1.375">
+                Lightly Active — 1–3 days/week
+              </option>
+
+              <option value="1.55">
+                Moderately Active — 3–5 days/week
+              </option>
+
+              <option value="1.725">
+                Very Active — 6–7 days/week
+              </option>
+
+            </select>
+          </div>
+
+          <button id="goBtn" class="main-btn">
+            <span>CREATE MY PLAN</span>
+            <span class="btn-arrow">→</span>
+          </button>
+
+          <div class="small-note">
+            Your results are estimates for lifestyle planning.
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="signature">
+        MUNTHASIR
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         LOADING SCREEN
+    ========================== -->
+    <section id="loadingScreen" class="screen loading-screen hidden">
+
+      <div class="loader-content">
+
+        <div class="loader-orbit">
+
+          <div class="orbit orbit-1"></div>
+          <div class="orbit orbit-2"></div>
+
+          <div class="loader-core">
+            <span></span>
+          </div>
+
+        </div>
+
+        <span class="eyebrow">LIFEASSIST ENGINE</span>
+
+        <h2 id="loadingTitle">
+          Understanding your lifestyle
+        </h2>
+
+        <p id="loadingText">
+          Calculating your daily requirements...
+        </p>
+
+        <div class="loading-progress">
+          <div id="loadingProgressBar"></div>
+        </div>
+
+        <div class="loading-steps">
+
+          <span id="step1">PROFILE</span>
+          <span id="step2">CALORIES</span>
+          <span id="step3">NUTRITION</span>
+          <span id="step4">MEALS</span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         DASHBOARD
+    ========================== -->
+    <main id="dashboard" class="dashboard hidden">
+
+      <header class="dashboard-header">
+
+        <div>
+
+          <span class="eyebrow">
+            YOUR PERSONAL PLAN
+          </span>
+
+          <h1>
+            Your lifestyle,<br />
+            <span>simplified.</span>
+          </h1>
+
+        </div>
+
+        <button id="editProfileBtn" class="outline-btn">
+          EDIT PROFILE
+        </button>
+
+      </header>
+
+
+      <!-- =========================
+           CALORIE HERO
+      ========================== -->
+      <section class="calorie-hero">
+
+        <div class="calorie-glow"></div>
+
+        <div class="calorie-content">
+
+          <span class="eyebrow">
+            ESTIMATED MAINTENANCE CALORIES
+          </span>
+
+          <div class="calorie-number">
+            <span id="calorieValue">0</span>
+            <small>kcal/day</small>
+          </div>
+
+          <p>
+            Estimated energy your body may need to maintain
+            your current weight at your selected activity level.
+          </p>
+
+          <div class="mini-stats">
+
+            <div>
+              <span>BMR</span>
+              <strong id="bmrValue">0</strong>
+            </div>
+
+            <div>
+              <span>ACTIVITY</span>
+              <strong id="activityValue">—</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="calorie-orb">
+
+          <div class="orb-ring ring-one"></div>
+          <div class="orb-ring ring-two"></div>
+
+          <div class="orb-number">
+            <span id="orbCalories">0</span>
+            <small>KCAL</small>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           NUTRITION
+      ========================== -->
+      <section class="nutrition-section">
+
+        <div class="section-heading">
+
+          <div>
+            <span class="eyebrow">DAILY NUTRITION</span>
+
+            <h2>
+              Know what your body needs.
+            </h2>
+          </div>
+
+          <p>
+            Tap any nutrient to see foods, portions,
+            approximate cost and an easy way to reach your target.
+          </p>
+
+        </div>
+
+
+        <div class="nutrition-grid">
+
+          <!-- PROTEIN -->
+          <button
+            class="nutrition-card protein-card"
+            data-nutrient="protein"
+          >
+
+            <div class="card-icon">
+              P
+            </div>
+
+            <div class="card-main">
+
+              <span>PROTEIN</span>
+
+              <strong>
+                <span id="proteinValue">0</span>
+                <small>g</small>
+              </strong>
+
+              <p>
+                Muscle & tissue support
+              </p>
+
+            </div>
+
+            <span class="card-arrow">↗</span>
+
+          </button>
+
+
+          <!-- WATER -->
+          <button
+            class="nutrition-card water-card"
+            data-nutrient="water"
+          >
+
+            <div class="card-icon">
+              W
+            </div>
+
+            <div class="card-main">
+
+              <span>WATER</span>
+
+              <strong>
+                <span id="waterValue">0</span>
+                <small>L</small>
+              </strong>
+
+              <p>
+                Hydration & daily function
+              </p>
+
+            </div>
+
+            <span class="card-arrow">↗</span>
+
+          </button>
+
+
+          <!-- CARBS -->
+          <button
+            class="nutrition-card carbs-card"
+            data-nutrient="carbs"
+          >
+
+            <div class="card-icon">
+              C
+            </div>
+
+            <div class="card-main">
+
+              <span>CARBS</span>
+
+              <strong>
+                <span id="carbsValue">0</span>
+                <small>g</small>
+              </strong>
+
+              <p>
+                Everyday energy
+              </p>
+
+            </div>
+
+            <span class="card-arrow">↗</span>
+
+          </button>
+
+
+          <!-- FIBRE -->
+          <button
+            class="nutrition-card fibre-card"
+            data-nutrient="fibre"
+          >
+
+            <div class="card-icon">
+              F
+            </div>
+
+            <div class="card-main">
+
+              <span>FIBRE</span>
+
+              <strong>
+                <span id="fibreValue">0</span>
+                <small>g</small>
+              </strong>
+
+              <p>
+                Digestive support
+              </p>
+
+            </div>
+
+            <span class="card-arrow">↗</span>
+
+          </button>
+
+
+          <!-- FAT -->
+          <button
+            class="nutrition-card fat-card"
+            data-nutrient="fat"
+          >
+
+            <div class="card-icon">
+              F
+            </div>
+
+            <div class="card-main">
+
+              <span>HEALTHY FATS</span>
+
+              <strong>
+                <span id="fatValue">0</span>
+                <small>g</small>
+              </strong>
+
+              <p>
+                Energy & nutrient absorption
+              </p>
+
+            </div>
+
+            <span class="card-arrow">↗</span>
+
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           EASY DAILY PLAN
+      ========================== -->
+      <section class="daily-plan-section">
+
+        <div class="section-heading">
+
+          <div>
+            <span class="eyebrow">SMART FOOD PLAN</span>
+
+            <h2>
+              A tasty way to reach your target.
+            </h2>
+          </div>
+
+          <p>
+            Familiar foods, flexible choices and an
+            approximate daily budget.
+          </p>
+
+        </div>
+
+
+        <div class="plan-layout">
+
+          <div class="meal-list" id="mealList">
+            <!-- JS -->
+          </div>
+
+
+          <div class="budget-card">
+
+            <span class="eyebrow">
+              ESTIMATED FOOD BUDGET
+            </span>
+
+            <div class="budget-number">
+              ₹<span id="dailyCost">0</span>
+            </div>
+
+            <p>
+              Approximate cost per day
+            </p>
+
+            <div class="budget-divider"></div>
+
+            <div class="budget-row">
+              <span>7 days</span>
+              <strong>
+                ₹<span id="weeklyCost">0</span>
+              </strong>
+            </div>
+
+            <div class="budget-row">
+              <span>30 days</span>
+              <strong>
+                ₹<span id="monthlyCost">0</span>
+              </strong>
+            </div>
+
+            <div class="budget-note">
+              Food prices vary by location, shop,
+              brand and season.
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           DISCLAIMER
+      ========================== -->
+      <footer class="dashboard-footer">
+
+        <div>
+          <strong>LIFEASSIST</strong>
+          <span>
+            Lifestyle planning made simple.
+          </span>
+        </div>
+
+        <p>
+          Nutrition quantities and food prices are approximate.
+          They are intended for general lifestyle planning,
+          not medical diagnosis or treatment.
+        </p>
+
+        <span class="footer-name">
+          MUNTHASIR
+        </span>
+
+      </footer>
+
+    </main>
+
+
+    <!-- =========================
+         DETAIL OVERLAY
+    ========================== -->
+    <section
+      id="detailOverlay"
+      class="detail-overlay hidden"
+      aria-hidden="true"
+    >
+
+      <div class="detail-backdrop"></div>
+
+      <div class="detail-panel">
+
+        <button
+          id="closeDetailBtn"
+          class="close-detail"
+        >
+          ← BACK
+        </button>
+
+
+        <div class="detail-layout">
+
+          <!-- =========================
+               HUMAN BODY
+          ========================== -->
+          <div class="body-stage">
+
+            <div class="body-glow"></div>
+
+            <div class="body-label">
+              <span id="bodyModeLabel">
+                DAILY TARGET
+              </span>
+            </div>
+
+            <svg
+              class="human-svg"
+              viewBox="0 0 220 500"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+
+              <defs>
+
+                <linearGradient
+                  id="bodyGradient"
+                  x1="0"
+                  y1="0"
+                  x2="1"
+                  y2="1"
+                >
+
+                  <stop
+                    offset="0%"
+                    stop-color="#ffffff"
+                    stop-opacity=".95"
+                  />
+
+                  <stop
+                    offset="100%"
+                    stop-color="#a9ffda"
+                    stop-opacity=".35"
+                  />
+
+                </linearGradient>
+
+
+                <linearGradient
+                  id="waterGradient"
+                  x1="0"
+                  y1="1"
+                  x2="0"
+                  y2="0"
+                >
+
+                  <stop
+                    offset="0%"
+                    stop-color="#5eead4"
+                    stop-opacity=".95"
+                  />
+
+                  <stop
+                    offset="100%"
+                    stop-color="#38bdf8"
+                    stop-opacity=".75"
+                  />
+
+                </linearGradient>
+
+
+                <filter
+                  id="bodyGlow"
+                  x="-100%"
+                  y="-100%"
+                  width="300%"
+                  height="300%"
+                >
+
+                  <feGaussianBlur
+                    stdDeviation="7"
+                    result="blur"
+                  />
+
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+
+                </filter>
+
+
+                <clipPath id="humanClip">
+
+                  <!-- head -->
+                  <circle
+                    cx="110"
+                    cy="48"
+                    r="28"
+                  />
+
+                  <!-- neck -->
+                  <rect
+                    x="96"
+                    y="70"
+                    width="28"
+                    height="28"
+                    rx="10"
+                  />
+
+                  <!-- torso -->
+                  <path
+                    d="
+                    M76 91
+                    Q110 78 144 91
+                    L157 180
+                    Q151 202 139 213
+                    L133 302
+                    L87 302
+                    L81 213
+                    Q69 202 63 180
+                    Z
+                    "
+                  />
+
+                  <!-- left arm -->
+                  <path
+                    d="
+                    M76 94
+                    Q62 94 57 109
+                    L35 207
+                    Q33 220 42 224
+                    Q51 228 56 215
+                    L82 145
+                    Z
+                    "
+                  />
+
+                  <!-- right arm -->
+                  <path
+                    d="
+                    M144 94
+                    Q158 94 163 109
+                    L185 207
+                    Q187 220 178 224
+                    Q169 228 164 215
+                    L138 145
+                    Z
+                    "
+                  />
+
+                  <!-- left leg -->
+                  <path
+                    d="
+                    M87 290
+                    L108 290
+                    L105 420
+                    L94 472
+                    Q91 482 79 479
+                    Q70 476 74 465
+                    L84 410
+                    Z
+                    "
+                  />
+
+                  <!-- right leg -->
+                  <path
+                    d="
+                    M112 290
+                    L133 290
+                    L136 410
+                    L146 465
+                    Q150 476 141 479
+                    Q129 482 126 472
+                    L115 420
+                    Z
+                    "
+                  />
+
+                </clipPath>
+
+              </defs>
+
+
+              <!-- BODY BASE -->
+
+              <g class="body-base">
+
+                <circle
+                  cx="110"
+                  cy="48"
+                  r="28"
+                />
+
+                <rect
+                  x="96"
+                  y="70"
+                  width="28"
+                  height="28"
+                  rx="10"
+                />
+
+                <path
+                  d="
+                  M76 91
+                  Q110 78 144 91
+                  L157 180
+                  Q151 202 139 213
+                  L133 302
+                  L87 302
+                  L81 213
+                  Q69 202 63 180
+                  Z
+                  "
+                />
+
+                <path
+                  d="
+                  M76 94
+                  Q62 94 57 109
+                  L35 207
+                  Q33 220 42 224
+                  Q51 228 56 215
+                  L82 145
+                  Z
+                  "
+                />
+
+                <path
+                  d="
+                  M144 94
+                  Q158 94 163 109
+                  L185 207
+                  Q187 220 178 224
+                  Q169 228 164 215
+                  L138 145
+                  Z
+                  "
+                />
+
+                <path
+                  d="
+                  M87 290
+                  L108 290
+                  L105 420
+                  L94 472
+                  Q91 482 79 479
+                  Q70 476 74 465
+                  L84 410
+                  Z
+                  "
+                />
+
+                <path
+                  d="
+                  M112 290
+                  L133 290
+                  L136 410
+                  L146 465
+                  Q150 476 141 479
+                  Q129 482 126 472
+                  L115 420
+                  Z
+                  "
+                />
+
+              </g>
+
+
+              <!-- WATER -->
+
+              <g
+                id="waterFill"
+                class="water-fill"
+                clip-path="url(#humanClip)"
+              >
+
+                <rect
+                  id="waterRect"
+                  x="0"
+                  y="300"
+                  width="220"
+                  height="220"
+                  fill="url(#waterGradient)"
+                />
+
+                <path
+                  class="water-wave wave-one"
+                  d="
+                  M0 315
+                  Q30 300 60 315
+                  T120 315
+                  T180 315
+                  T240 315
+                  L240 520
+                  L0 520
+                  Z
+                  "
+                />
+
+                <path
+                  class="water-wave wave-two"
+                  d="
+                  M0 330
+                  Q30 315 60 330
+                  T120 330
+                  T180 330
+                  T240 330
+                  L240 520
+                  L0 520
+                  Z
+                  "
+                />
+
+              </g>
+
+
+              <!-- BODY OUTLINE -->
+
+              <g
+                class="body-outline"
+                fill="none"
+                stroke="url(#bodyGradient)"
+                stroke-width="3"
+                filter="url(#bodyGlow)"
+              >
+
+                <circle
+                  cx="110"
+                  cy="48"
+                  r="28"
+                />
+
+                <path
+                  d="
+                  M96 72
+                  L96 96
+                  M124 72
+                  L124 96
+                  "
+                />
+
+                <path
+                  d="
+                  M76 91
+                  Q110 78 144 91
+                  L157 180
+                  "
+                />
+
+                <path
+                  d="
+                  M76 94
+                  Q62 94 57 109
+                  L35 207
+                  "
+                />
+
+                <path
+                  d="
+                  M144 94
+                  Q158 94 163 109
+                  L185 207
+                  "
+                />
+
+                <path
+                  d="
+                  M87 290
+                  L108 290
+                  L105 420
+                  L94 472
+                  "
+                />
+
+                <path
+                  d="
+                  M112 290
+                  L133 290
+                  L136 420
+                  L146 472
+                  "
+                />
+
+              </g>
+
+
+              <!-- CENTER ENERGY LINES -->
+
+              <g
+                id="bodyEnergy"
+                class="body-energy"
+              >
+
+                <circle
+                  cx="110"
+                  cy="155"
+                  r="20"
+                />
+
+                <circle
+                  cx="110"
+                  cy="155"
+                  r="34"
+                />
+
+                <circle
+                  cx="110"
+                  cy="155"
+                  r="50"
+                />
+
+              </g>
+
+            </svg>
+
+
+            <div
+              id="bodyVisualCaption"
+              class="body-caption"
+            >
+              Illustrative visual — not a medical measurement.
+            </div>
+
+          </div>
+
+
+          <!-- =========================
+               DETAIL CONTENT
+          ========================== -->
+          <div class="detail-content">
+
+            <div class="detail-heading">
+
+              <span
+                id="detailEyebrow"
+                class="eyebrow"
+              >
+                DAILY NUTRITION
+              </span>
+
+              <h2 id="detailTitle">
+                Protein
+              </h2>
+
+              <p id="detailIntro">
+                Protein helps support and maintain body tissues.
+              </p>
+
+            </div>
+
+
+            <!-- TARGET -->
+            <div class="target-box">
+
+              <div>
+                <span>
+                  YOUR ESTIMATED TARGET
+                </span>
+
+                <strong id="detailAmount">
+                  0
+                </strong>
+
+                <small id="detailUnit">
+                  g / day
+                </small>
+              </div>
+
+              <div class="target-progress">
+
+                <div class="target-progress-track">
+                  <div
+                    id="targetProgress"
+                    class="target-progress-fill"
+                  ></div>
+                </div>
+
+                <span>
+                  Planning target
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- FOOD FILTER -->
+            <div class="food-header">
+
+              <div>
+
+                <span class="eyebrow">
+                  WHAT CAN YOU EAT?
+                </span>
+
+                <h3>
+                  Simple & tasty choices
+                </h3>
+
+              </div>
+
+              <div class="food-filters">
+
+                <button
+                  class="food-filter active"
+                  data-filter="all"
+                >
+                  ALL
+                </button>
+
+                <button
+                  class="food-filter"
+                  data-filter="veg"
+                >
+                  VEG
+                </button>
+
+                <button
+                  class="food-filter"
+                  data-filter="egg"
+                >
+                  EGG
+                </button>
+
+                <button
+                  class="food-filter"
+                  data-filter="nonveg"
+                >
+                  NON-VEG
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <!-- FOOD CARDS -->
+            <div
+              id="foodList"
+              class="food-list"
+            >
+              <!-- JS -->
+            </div>
+
+
+            <!-- SAMPLE PLAN -->
+            <div class="sample-plan">
+
+              <div class="sample-plan-heading">
+
+                <span class="eyebrow">
+                  EASY WAY TO REACH YOUR TARGET
+                </span>
+
+                <h3 id="samplePlanTitle">
+                  Example
+                </h3>
+
+              </div>
+
+              <div
+                id="samplePlanContent"
+                class="sample-plan-content"
+              >
+                <!-- JS -->
+              </div>
+
+            </div>
+
+
+            <!-- NUTRIENT NOTE -->
+            <div
+              id="nutrientNote"
+              class="nutrient-note"
+            >
+              <!-- JS -->
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- TOAST -->
+    <div id="toast" class="toast">
+      Please complete your profile.
+    </div>
+
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
